@@ -1,13 +1,13 @@
 import ramlaImg from '../assets/ramla.jpeg';
 import levinskiImg from '../assets/levinski.jpeg';
-import ashdodImg from '../assets/ashdod.jpg';
+import ashdod1Img from '../assets/ashdod1.jpeg';
 
 const tours = [
   {
     id: "ashdod-tasting-graffiti",
     title: "סיור טעימות וגרפיטי באשדוד",
-    coverImage: ashdodImg,
-    gallery: [ashdodImg],
+    coverImage: ashdod1Img,
+    gallery: [ashdod1Img],
     description: [
       "סיור חווייתי באשדוד הכולל טעימות מגוונות וסיור גרפיטי בשוק רובע ו'.",
       "נשמע את סיפורו המעצים של עדי קלנג, פעמיים אלוף עולם בגלישה פאראלימפית ומקים מיזם חברתי 'גלגלים בית ספר לגלישה נגישה'.",
@@ -35,8 +35,8 @@ const tours = [
   {
     id: "ashdod-marine-experience",
     title: "סיור ופעילות ימית באשדוד",
-    coverImage: ashdodImg,
-    gallery: [ashdodImg],
+    coverImage: ashdod1Img,
+    gallery: [ashdod1Img],
     description: [
       "סיור מרענן וחוויתי באשדוד הכולל הפלגה, פעילות גלישה ואתרי טבע.",
       "סיור מודרך בבית קלנג, גבעת יונה, פארק אשדוד ים, אתר הנצחה 'מקום בלב', הפלגה במרינה אשדוד או פעילות גלישה, וסיור במצודת אשדוד ים."
