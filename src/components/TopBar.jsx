@@ -24,7 +24,7 @@ function TopBar() {
           <li><a href="/" className="active">ראשי</a></li>
           <li><a href="/tours">סיורים</a></li>
           <li>
-            <a href="#contact" className="topbar-contact-link">
+            <a href={whatsappUrl} className="topbar-contact-link" target="_blank" rel="noopener noreferrer">
               צור קשר
               <span style={{display:'inline-block',verticalAlign:'middle',marginRight:'0.4em'}}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
