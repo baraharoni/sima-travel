@@ -1,15 +1,19 @@
 import './App.css'
 import simaLogo from './assets/simaLogo.jpeg';
 import simaImg from './assets/sima.jpeg';
-import coverImg from './assets/cover.jpeg';
+import coverImg from './assets/cover.JPG';
 import ashdod1Img from './assets/ashdod1.jpeg';
 import levinskiImg from './assets/levinski.jpeg';
 import ramlaImg from './assets/ramla.jpeg';
 import ToursSection from './components/ToursSection';
 import TopBar from './components/TopBar';
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
 import tours from './data/tours';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
+import simavideo from './assets/simavideo.mp4';
+import aboutImg from './assets/about.jpeg';
 
 const whatsappNumber = '0534867244';
 const whatsappMsg = encodeURIComponent('היי סימה-לי הגעתי מהאתר ואני מתעניין בסיור');
@@ -21,7 +25,7 @@ function Header() {
       <div className="hero-bg" style={{ backgroundImage: `url(${coverImg})` }} />
       <div className="hero-content">
         <h1>לטייל עם סימה-לי</h1>
-        <img src={simaLogo} alt="Sima-lee Travel Logo" className="sima-hero-img" />
+        <img src={simaImg} alt="סימה קלנג" className="sima-hero-img" />
         <p className="hero-desc">
           ברוכים הבאים לסימה-לי טיולים!<br />
           סיורים חווייתיים, טעימים ומרגשים ברחבי הארץ, בהדרכת מורת דרך מוסמכת.<br />
@@ -41,11 +45,28 @@ function Header() {
   );
 }
 
+function VideoSection() {
+  return (
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', background: 'none', margin: '0 0 1.5rem 0' }}>
+      <video
+        src={simavideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls
+        style={{ width: '100%', maxWidth: 700, borderRadius: 18, boxShadow: '0 2px 12px #0002', background: '#000' }}
+        poster={coverImg}
+      />
+    </div>
+  );
+}
+
 function AboutSection() {
   return (
     <section className="about-section">
       <h2>אודות סימה-לי</h2>
-      <img src={simaImg} alt="סימה קלנג" className="about-img" />
+      <img src={aboutImg} alt="סימה קלנג" className="about-img" />
       <p className="about-desc">
         שמי סימה-לי, תושבת אשדוד ומורת דרך מוסמכת. במשך שנים שימשתי בתפקיד המשנה ליועץ המשפטי בעיריית אשדוד, אני ד"ר למשפטים, מרצה ומגשרת, אך האהבה שלי לארץ, לאנשים ולטיולים תמיד בערה בי. מתוך התשוקה הזו נולד הרעיון לשתף אחרים בחוויות, בטעמים ובסיפורים של המקומות המיוחדים בארץ. מה שהתחיל כמפגשים חבריים הפך עם הזמן לסיורים מבוקשים בקרב קבוצות וארגונים מכל הארץ. אני מאמינה שכל טיול הוא הזדמנות להתרגש, להכיר וליצור זיכרונות חדשים – בגובה העיניים, עם חיוך והרבה אהבה. אשמח לצאת איתכם למסע מרתק בארץ ישראל!
       </p>
@@ -73,18 +94,10 @@ function OrganizationsSection() {
 
 function TestimonialsSection() {
   const testimonials = [
-    {
-      name: "נועה, צוות חינוך",
-      text: "הסיור עם סימה היה חוויה מעשירה, מצחיקה ומרגשת. כל הצוות יצא עם חיוך!"
-    },
-    {
-      name: "דנה, משאבי אנוש",
-      text: "סימה התאימה לנו סדנה בדיוק לצרכים שלנו. קיבלנו השראה, טעמים וסיפורים שלא נשכח."
-    },
-    {
-      name: "רוני, מנהלת קבוצה",
-      text: "הסיור היה מקצועי, מעניין ומלא הפתעות. ממליצה בחום לכל ארגון!"
-    }
+    { name: "אתי", text: "יום מקסים תודה רבה למדריכה המהממת היה כייף 🥰🩷" },
+    { name: "מיכל", text: "היה מושלם אין על סימה ❤️🙏" },
+    { name: "אירמה", text: "תודה סימה מדהימה את\nאלופה נעימה וזורמת היה מלא השראה ותוכן\nתודה" },
+    { name: "מזל", text: "תודה סימה היה מושלם נתראה בטיולים הבאים❤️" }
   ];
   const [idx, setIdx] = useState(0);
   const next = () => setIdx((i) => (i + 1) % testimonials.length);
@@ -113,6 +126,18 @@ function Footer() {
         <a href="/tours" className="footer-link">סיורים</a>
         <a href="#contact" className="footer-link">צור קשר</a>
       </nav>
+      <div className="footer-social-row">
+        <a href="https://www.facebook.com/sima.azogui.klang" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0z" fill="#fff"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/simaklang1" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="אינסטגרם">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.363 3.678 1.344c-.98.98-1.213 2.092-1.272 3.374C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.282.292 2.394 1.272 3.374.98.98 2.092 1.213 3.374 1.272C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.282-.059 2.394-.292 3.374-1.272.98-.98 1.213-2.092 1.272-3.374.059-1.28.072-1.689.072-4.948s-.013-3.668-.072-4.948c-.059-1.282-.292-2.394-1.272-3.374-.98-.98-2.092-1.213-3.374-1.272C15.668.013 15.259 0 12 0zm0 5.838A6.162 6.162 0 0 0 5.838 12 6.162 6.162 0 0 0 12 18.162 6.162 6.162 0 0 0 18.162 12 6.162 6.162 0 0 0 12 5.838zm0 10.162A3.999 3.999 0 1 1 12 8a3.999 3.999 0 0 1 0 7.999zm6.406-11.845a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z" fill="#fff"/>
+          </svg>
+        </a>
+      </div>
       <p>© 2024 Sima-lee Travel</p>
     </footer>
   );
@@ -135,9 +160,8 @@ function ClosingSection() {
         </div>
         <h2 className="closing-title">מוכנים לחוויה בלתי נשכחת?</h2>
         <p className="closing-text">
-          בואו נצא יחד למסע מרתק בארץ ישראל!<br />
-          כל טיול הוא הזדמנות לגלות מקומות חדשים, לטעום טעמים מיוחדים<br />
-          וליצור זיכרונות שילוו אתכם לכל החיים 🌟
+          לא מצאתם סיור שמתאים בדיוק עבורכם?<br />
+          ישנם סיורים רבים נוספים, וניתן להזמין סיור בהתאמה אישית – אשמח לבנות עבורכם חוויה ייחודית ומותאמת במיוחד!
         </p>
         <a className="closing-cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
           <span className="whatsapp-icon" aria-hidden="true">
@@ -187,10 +211,21 @@ function TourPage() {
       <div className="tourpage-content">
         <button className="tourpage-back" onClick={() => navigate(-1)}>חזרה</button>
         <h1 className="tourpage-title">{tour.title}</h1>
-        <div className="tourpage-gallery">
-          {tour.gallery.map((img, i) => (
-            <img src={img} alt={tour.title + ' תמונה ' + (i+1)} key={i} />
-          ))}
+        <div className="tourpage-gallery" style={{display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'1.2rem'}}>
+          <img
+            src={tour.gallery[0]}
+            alt={tour.title + ' תמונה ראשית'}
+            style={{
+              width: '100%',
+              maxWidth: '98vw',
+              height: 'auto',
+              maxHeight: '320px',
+              objectFit: tour.id === 'ramla-tasting' ? 'contain' : 'cover',
+              borderRadius: '12px',
+              boxShadow: '0 2px 8px #0001',
+              background: tour.id === 'ramla-tasting' ? '#fff' : undefined
+            }}
+          />
         </div>
         <div className="tourpage-desc">
           {tour.description.map((p, i) => <p key={i}>{p}</p>)}
@@ -244,6 +279,7 @@ function MainApp() {
         <Route path="/" element={
           <>
             <Header />
+            <VideoSection />
             <ToursSection />
             <AboutSection />
             <OrganizationsSection />
@@ -260,9 +296,18 @@ function MainApp() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <MainApp />
     </BrowserRouter>
   );

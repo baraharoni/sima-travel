@@ -5,7 +5,7 @@ function ToursSection() {
   const navigate = useNavigate();
   return (
     <section className="tours-section">
-      <h2>סיורים של סימה-לי</h2>
+      <h2>הסיורים של סימה-לי</h2>
       <div className="tours-grid">
         {tours.map(tour => (
           <div
