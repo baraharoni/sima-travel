@@ -119,12 +119,15 @@ function TestimonialsSection() {
 }
 
 function Footer() {
+  const whatsappNumber = '0534867244';
+  const whatsappMsg = encodeURIComponent('היי סימה-לי הגעתי מהאתר ואני מתעניין בסיור');
+  const whatsappUrl = `https://wa.me/972${whatsappNumber.slice(1)}?text=${whatsappMsg}`;
   return (
     <footer className="footer brown-footer">
       <nav className="footer-nav">
         <a href="/" className="footer-link">ראשי</a>
         <a href="/tours" className="footer-link">סיורים</a>
-        <a href="#contact" className="footer-link">צור קשר</a>
+        <a href={whatsappUrl} className="footer-link" target="_blank" rel="noopener noreferrer">צור קשר</a>
       </nav>
       <div className="footer-social-row">
         <a href="https://www.facebook.com/sima.azogui.klang" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק">
